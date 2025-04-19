@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senin Döylögdi - LearnEase</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color:rgba(0,0,0,0.5);
+            margin: 0;
+            padding: 40px;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .container {
+            width: 600px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            position: relative;
+        }
+        
+        h1 {
+            color: #4a2c82;
+            margin: 0 0 15px 0;
+            font-size: 28px;
+            text-align: center;
+            font-weight: 700;
+        }
+        
+        h2 {
+            color: #4a2c82;
+            font-size: 20px;
+            margin: 20px 0 10px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f9be22;
+        }
+        
+        .question-section {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9be22;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+            border-left: 4px solid #6a3cb5;
+        }
+        
+        .question-section h3 {
+            color: #4a2c82;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .options-list {
+            list-style-type: none;
+            padding: 0;
+            margin: 15px 0;
+        }
+        
+        .options-list li {
+            padding: 12px 15px;
+            margin: 8px 0;
+            font-size: 15px;
+            color: #333;
+            background-color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .options-list li:hover {
+            background-color: #f0eaff;
+            border-color: #c9b6f0;
+        }
+        
+        .points-badge {
+            background-color: #6a3cb5;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .status-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0;
+        }
+        
+        .status-box {
+            flex: 1;
+            padding: 15px;
+            margin: 0 5px;
+            background-color: #f9f7ff;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .status-box h3 {
+            color: #4a2c82;
+            margin: 0 0 8px 0;
+            font-size: 16px;
+        }
+        
+        .status-box p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .health-bar {
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .health-progress {
+            height: 100%;
+            background-color: #4caf50;
+            width: 100%;
+        }
+        
+        .progress-info {
+            font-size: 13px;
+            color: #6a3cb5;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .action-button {
+            background-color: #6a3cb5;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .action-button:hover {
+            background-color: #5a2ca5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Yeni döyüş</h1>
+        
+        <h2>Test 1</h2>
+        <div class="question-section">
+            <h3>Türkiyənin paytaxtı haradır?</h3>
+            <ul class="options-list">
+                <li>Bakı</li>
+                <li>London</li>
+                <li>Ankara</li>
+            </ul>
+            <div class="points-badge">Cadhler: 100</div>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="status-section">
+            <div class="status-box">
+                <h3>Status</h3>
+                <p>Bronze</p>
+            </div>
+            <div class="status-box">
+                <h3>Can</h3>
+                <p>100%</p>
+                <div class="health-bar">
+                    <div class="health-progress" style="width: 100%;"></div>
+                </div>
+            </div>
+            <div class="status-box">
+                <h3>Xallar</h3>
+                <p>10 XP</p>
+            </div>
+        </div>
+        
+        <button class="action-button">Davam et</button>
+        
+        <!-- Backend-compatible question section (hidden by default) -->
+        <div class="question-section" style="display: none;">
+            <h3>{{ question.subject|title }}</h3>
+            <p>{{ question.text }}</p>
+            <ul class="options-list">
+                {% for answer in answers %}
+                    <li>{{ answer.text }}</li>
+                {% endfor %}
+            </ul>
+            <div class="progress-info">Sual {{ question_num }}/{{ total_questions }}</div>
+        </div>
+    </div>
+</body>
+</html>

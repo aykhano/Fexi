@@ -1,0 +1,238 @@
+{% extends 'battles/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #231f20;
+        font-family: 'Segoe UI', sans-serif;
+        color: #fff;
+    }
+
+    .arena-container {
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        padding: 40px;
+        background: linear-gradient(145deg, #2c292b, #1a1819);
+        border-radius: 20px;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .warrior-profile {
+        background: #2a2728;
+        padding: 30px;
+        border-radius: 20px;
+        width: 300px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    .warrior-profile h2 {
+        color: #f9be22;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .level-bar span {
+        font-size: 14px;
+    }
+
+    .progress {
+        background: #444;
+        border-radius: 10px;
+        height: 15px;
+        margin-top: 5px;
+    }
+
+    .progress-bar {
+        background-color: #f9be22;
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.4s ease;
+    }
+
+    .stats .stat {
+        margin-top: 15px;
+    }
+
+    .stat-name {
+        font-size: 13px;
+    }
+
+    .stat-bar {
+        background-color: #333;
+        border-radius: 10px;
+        height: 10px;
+        margin-top: 5px;
+    }
+
+    .stat-bar > div {
+        background-color: #f9be22;
+        height: 10px;
+        border-radius: 10px;
+    }
+
+    .coins {
+        margin-top: 20px;
+        font-size: 16px;
+        color: #f9be22;
+        text-align: center;
+    }
+
+    .battle-area {
+        flex: 1;
+        background: #2a2728;
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+
+    .btn {
+        background-color: #f9be22;
+        border: none;
+        color: #231f20;
+        font-weight: bold;
+        padding: 10px 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+
+    .btn:hover {
+        transform: scale(1.05);
+    }
+
+    #battle-container, #battle-result {
+        margin-top: 20px;
+    }
+
+    .character-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .character img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 2px solid #f9be22;
+        background: #fff;
+        box-shadow: 0 0 10px #f9be22;
+    }
+
+    .hp-bar-container {
+        text-align: center;
+        width: 100%;
+    }
+
+    .hp-bar {
+        background-color: #333;
+        border-radius: 10px;
+        height: 15px;
+        margin: 5px auto;
+        width: 80%;
+    }
+
+    .hp-fill {
+        background-color: #f74f4f;
+        height: 15px;
+        border-radius: 10px;
+    }
+
+    .level-up {
+        color: #f9be22;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+</style>
+
+<div class="arena-container">
+    <div class="warrior-profile">
+        <h2>{{ warrior.name }}</h2>
+        <div class="level-bar">
+            <span>Səviyyə {{ warrior.level }}</span>
+            <div class="progress">
+                <div class="progress-bar" style="width: {{ warrior.experience }}%;"></div>
+            </div>
+        </div>
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-name">Analitik Güc</span>
+                <div class="stat-bar">
+                    <div style="width: {{ warrior.analytic_power }}0%;"></div>
+                </div>
+            </div>
+            <div class="stat">
+                <span class="stat-name">Sürətli Düşüncə</span>
+                <div class="stat-bar">
+                    <div style="width: {{ warrior.quick_think }}0%;"></div>
+                </div>
+            </div>
+            <div class="stat">
+                <span class="stat-name">Söz Ustalığı</span>
+                <div class="stat-bar">
+                    <div style="width: {{ warrior.word_mastery }}0%;"></div>
+                </div>
+            </div>
+            <div class="stat">
+                <span class="stat-name">Araşdırma Zəkası</span>
+                <div class="stat-bar">
+                    <div style="width: {{ warrior.research_skill }}0%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="coins">
+            Coinlər: {{ warrior.coins }}
+        </div>
+    </div>
+
+    <div class="battle-area">
+        <div class="character-section">
+            <div class="character">
+                <img src="https://cdn-icons-png.flaticon.com/512/7516/7516823.png" alt="Warrior Avatar">
+                <p>Status: <span id="warrior-status">Hazır</span></p>
+            </div>
+            <div class="hp-bar-container">
+                <p>Can: <span id="warrior-hp-text">100</span>%</p>
+                <div class="hp-bar">
+                    <div id="warrior-hp-bar" class="hp-fill" style="width: 100%;"></div>
+                </div>
+            </div>
+            <div class="character">
+                <img src="https://cdn-icons-png.flaticon.com/512/1077/1077012.png" alt="Enemy AI">
+                <p>Məntiq Düşməni</p>
+            </div>
+        </div>
+
+        <a href="{% url 'start_battle' %}" class="btn">Yeni Döyüşə Başla</a>
+
+        <div id="battle-container" style="display: none;">
+            <div class="question-container">
+                <h3 id="question-subject"></h3>
+                <p id="question-text"></p>
+                <div id="answers-container"></div>
+                <p>Sual <span id="current-question">1</span>/<span id="total-questions">5</span></p>
+            </div>
+            <div class="battle-stats">
+                <p>Xal: <span id="battle-score">0</span></p>
+            </div>
+        </div>
+
+        <div id="battle-result" style="display: none;">
+            <h3>Döyüş Nəticəsi</h3>
+            <p>Topladığınız xal: <span id="final-score"></span></p>
+            <p>Qazandığınız təcrübə: <span id="experience-gained"></span></p>
+            <p>Qazandığınız coinlər: <span id="coins-gained"></span></p>
+            <div id="level-up-message" style="display: none;">
+                <p class="level-up">Təbriklər! Yeni səviyyəyə çatdınız!</p>
+            </div>
+            <button id="back-to-arena" class="btn">Arenaya qayıt</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

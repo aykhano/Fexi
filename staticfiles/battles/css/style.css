@@ -1,0 +1,141 @@
+.arena-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    font-family: 'Arial', sans-serif;
+}
+
+.warrior-profile {
+    background-color: #f5f5f5;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 300px;
+}
+
+.battle-area {
+    flex: 1;
+    background-color: #f5f5f5;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.level-bar {
+    margin: 1rem 0;
+}
+
+.progress {
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #4CAF50;
+    transition: width 0.3s;
+}
+
+.stats {
+    margin: 1.5rem 0;
+}
+
+.stat {
+    margin-bottom: 1rem;
+}
+
+.stat-name {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+}
+
+.stat-bar div {
+    height: 10px;
+    background-color: #2196F3;
+    border-radius: 5px;
+}
+
+.coins {
+    font-weight: bold;
+    color: #FFC107;
+    font-size: 1.2rem;
+}
+
+#battle-container {
+    margin-top: 1.5rem;
+}
+
+.question-container {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+#question-subject {
+    color: #673AB7;
+    margin-bottom: 0.5rem;
+}
+
+#question-text {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.answer-btn {
+    display: block;
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.answer-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.battle-stats {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+#battle-result {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.level-up {
+    color: #FF5722;
+    font-weight: bold;
+}
+
+.btn {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn-primary {
+    background-color: #673AB7;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #607D8B;
+    color: white;
+}
